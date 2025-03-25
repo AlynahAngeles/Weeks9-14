@@ -4,15 +4,26 @@ using UnityEngine;
 
 public class LoopSquare : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+
+    public float t;
+
+    public void Grow()
     {
-        
+        StartCoroutine(GetBigger());
     }
 
-    // Update is called once per frame
-    void Update()
+    // Start is called before the first frame update
+    IEnumerator GetBigger()
     {
-        
+        t = 0;
+        //Debug.Log("Starting!");
+        while (t < 1) //ALWAYS use a while statement with Coroutines (NOT if statements), if statements will only happen once while a while statement will be able to break up your code with Coroutines!
+        {
+            t += Time.deltaTime;
+            transform.localScale = Vector3.one * t;
+            //Debug.Log("Time to yield!");
+            yield return null;
+        }
+        //Debug.Log("The End");
     }
 }

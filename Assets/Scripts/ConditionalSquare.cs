@@ -4,15 +4,17 @@ using UnityEngine;
 
 public class ConditionalSquare : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
+    public float t;
+
+    // Start is called before the first frame update
+    public void Grow()
     {
-        
+        t = 0;
+        if (t < 1)
+        {
+            t += Time.deltaTime;
+            transform.localScale = Vector3.one * t;
+        }
     }
 }
