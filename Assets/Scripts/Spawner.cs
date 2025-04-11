@@ -6,23 +6,37 @@ public class Spawner : MonoBehaviour
 {
     public GameObject[] clothes; // Array of clothes prefabs to spawn
     public Vector3[] spawnPos; //Matching spawn positions
+    public Vector3 buttonPos;
     public GameObject buttonPrefab;
     public Transform buttonParent;
 
     void Start()
     {
-        Debug.Log("Spawner running");
+        Debug.Log("Restocking...");
 
         int count = Mathf.Min(clothes.Length, spawnPos.Length);
 
         for (int i = 0; i < count; i++)
         {
+
             GameObject spawnedCloth = Instantiate(clothes[i], spawnPos[i], Quaternion.identity);
-            GameObject button = Instantiate(buttonPrefab, buttonParent);
+            TargetCollision target = spawnedCloth.GetComponent<TargetCollision>();
 
-            var connector = button.GetComponent<ProfitCounter>();
-            connector.linkedCloth = spawnedCloth.GetComponent<TargetCollision>();
+            // Spawn UI Button
+            GameObject spawnedButton = Instantiate(buttonPrefab, buttonParent);
+            ProfitCounter counter = spawnedButton.GetComponent<ProfitCounter>();
 
+            if (counter != null && target != null)
+            {
+                counter.linkedCloth = target;
+            }
+
+            RectTransform button = spawnedButton.GetComponent<RectTransform>();
+
+            if (button != null)
+            {
+                spawnedButton.GetComponent<RectTransform>().anchoredPosition = buttonPos[i];
+            }
         }
     }
 }
