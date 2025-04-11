@@ -4,15 +4,21 @@ using UnityEngine;
 
 public class Spawner : MonoBehaviour
 {
-    // Start is called before the first frame update
+    public GameObject[] clothes; // Array of clothe prefabs to spawn
+    public Vector3[] spawnPos; //Matching spawn positions
+
     void Start()
     {
-        
-    }
+        int count = Mathf.Min(clothes.Length, spawnPos.Length);
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        for (int i = 0; i < count; i++)
+        {
+            if (clothes[i] != null)
+            {
+                Vector3 worldPosition = transform.position + spawnPos[i];
+                Instantiate(clothes[i], worldPosition, Quaternion.identity);
+            }
+        }
     }
 }
+
