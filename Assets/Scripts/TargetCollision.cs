@@ -6,27 +6,25 @@ public class TargetCollision : MonoBehaviour
 {
 
     public AnimationCurve curve;
-
+    public float t;
     private Vector3 OScale;
-    private float t;
 
     // Start is called before the first frame update
     void Start()
     {
         OScale = transform.localScale;
+
     }
 
-    public void SoldClothing()
+    public void Sell()
     {
         StartCoroutine(Selling());
     }
-
-    public IEnumerator Selling()
+    private IEnumerator Selling()
     {
-        OScale = transform.localScale;
 
-        t = 0;
-        while (t < 1)
+        t = 0f;
+        while (t < 1f)
         {
             t += Time.deltaTime;
             transform.localScale = OScale * (1f - curve.Evaluate(t));
@@ -35,7 +33,7 @@ public class TargetCollision : MonoBehaviour
 
         yield return new WaitForSeconds(Random.Range(0.5f, 2f));
 
-        t = 0;
+        t = 0f;
         while (t < 1)
         {
             t += Time.deltaTime;

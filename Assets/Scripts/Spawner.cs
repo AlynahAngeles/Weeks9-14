@@ -4,20 +4,25 @@ using UnityEngine;
 
 public class Spawner : MonoBehaviour
 {
-    public GameObject[] clothes; // Array of clothe prefabs to spawn
+    public GameObject[] clothes; // Array of clothes prefabs to spawn
     public Vector3[] spawnPos; //Matching spawn positions
+    public GameObject buttonPrefab;
+    public Transform buttonParent;
 
     void Start()
     {
+        Debug.Log("Spawner running");
+
         int count = Mathf.Min(clothes.Length, spawnPos.Length);
 
         for (int i = 0; i < count; i++)
         {
-            if (clothes[i] != null)
-            {
-                Vector3 worldPosition = transform.position + spawnPos[i];
-                Instantiate(clothes[i], worldPosition, Quaternion.identity);
-            }
+            GameObject spawnedCloth = Instantiate(clothes[i], spawnPos[i], Quaternion.identity);
+            GameObject button = Instantiate(buttonPrefab, buttonParent);
+
+            var connector = button.GetComponent<ProfitCounter>();
+            connector.linkedCloth = spawnedCloth.GetComponent<TargetCollision>();
+
         }
     }
 }
