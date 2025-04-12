@@ -33,10 +33,11 @@ public class TargetCollision : MonoBehaviour
         {
             t += Time.deltaTime;
             transform.localScale = OScale * (1f - curve.Evaluate(t));
+            Debug.Log("Another item SOLD! KA-CHING!");
             yield return null;
         }
 
-        yield return new WaitForSeconds(Random.Range(0.5f, 2f));
+        yield return new WaitForSeconds(Random.Range(0.5f, 3f));
 
         t = 0f;
         while (t < 1)

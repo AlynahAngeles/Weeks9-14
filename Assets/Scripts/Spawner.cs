@@ -16,7 +16,7 @@ public class Spawner : MonoBehaviour
 
     void Start()
     {
-        Debug.Log("Restocking...");
+        Debug.Log("Making big bucks today!");
 
         if(scoreDisplay == null)
         {
