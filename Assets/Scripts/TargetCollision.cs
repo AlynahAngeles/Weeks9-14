@@ -9,6 +9,7 @@ public class TargetCollision : MonoBehaviour
     public float t;
     private Vector3 OScale;
     public bool isSelling = false;
+    public float itemPrice = 1.00f;
 
     // Start is called before the first frame update
     void Start()

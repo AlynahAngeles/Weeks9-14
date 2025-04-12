@@ -12,6 +12,7 @@ public class Spawner : MonoBehaviour
     public GameObject buttonPrefab;
     public Transform buttonParent;
     public TMP_Text scoreDisplay;
+    public TMP_Text profitDisplay;
 
     void Start()
     {
@@ -22,7 +23,13 @@ public class Spawner : MonoBehaviour
             scoreDisplay = GameObject.Find("Score")?.GetComponent<TMP_Text>();
         }
 
+        if(profitDisplay == null)
+        {
+            profitDisplay = GameObject.Find("Profit")?.GetComponent<TMP_Text>();
+        }
+
         ProfitCounter.scoreDisplay = scoreDisplay;
+        ProfitCounter.profitDisplay = profitDisplay;
 
         int count = Mathf.Min(clothes.Length, spawnPos.Length);
 
