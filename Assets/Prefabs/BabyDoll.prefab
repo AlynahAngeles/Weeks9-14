@@ -133,3 +133,7 @@ MonoBehaviour:
   t: 0
   isSelling: 0
   itemPrice: 50
+  profitCounter: {fileID: 0}
+  maxSales: 100
+  currentSales: 0
+  soldOut: {fileID: 0}

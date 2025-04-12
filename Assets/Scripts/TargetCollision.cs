@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class TargetCollision : MonoBehaviour
@@ -11,6 +12,14 @@ public class TargetCollision : MonoBehaviour
     public bool isSelling = false;
     public float itemPrice = 1.00f;
 
+    public ProfitCounter profitCounter;
+    public float maxSales = 100;
+    public float currentSales = 0;
+
+    public TMP_Text soldOutText;
+
+    private Coroutine sellingCoroutine;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -19,12 +28,35 @@ public class TargetCollision : MonoBehaviour
 
     public void Sell()
     {
-        if (!isSelling)
-        { 
-            StartCoroutine(Selling());
+        if(isSelling || currentSales >= maxSales)
+        {
+            Debug.Log("Selling in progress or item sold out.");
+            return;
         }
+
+        currentSales++;
+        sellingCoroutine = StartCoroutine(Selling());
+
+        if (currentSales >= maxSales)
+        {
+            StopAllCoroutines();
+            gameObject.SetActive(false);
+
+            if(soldOutText != null)
+            {
+                soldOutText.text = "SOLD OUT!";
+                soldOutText.gameObject.SetActive(true);
+
+                soldOutText.transform.position = Camera.main.WorldToScreenPoint(transform.position + Vector3.up);
+            }
+
+            Debug.Log("Item is sold out!");
+        }
+
+        sellingCoroutine = StartCoroutine(Selling());
+            
     }
-    private IEnumerator Selling()
+    public IEnumerator Selling()
     {
         isSelling = true;
 
@@ -33,7 +65,6 @@ public class TargetCollision : MonoBehaviour
         {
             t += Time.deltaTime;
             transform.localScale = OScale * (1f - curve.Evaluate(t));
-            Debug.Log("Another item SOLD! KA-CHING!");
             yield return null;
         }
 

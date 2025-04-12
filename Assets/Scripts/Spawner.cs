@@ -14,6 +14,11 @@ public class Spawner : MonoBehaviour
     public TMP_Text scoreDisplay;
     public TMP_Text profitDisplay;
 
+    public BonusBurst burstScript;
+    public ProfitCounter counterScript;
+    public GameObject SoldOutSign;
+    public Canvas main;
+
     void Start()
     {
         Debug.Log("Making big bucks today!");
@@ -39,6 +44,15 @@ public class Spawner : MonoBehaviour
             GameObject spawnedCloth = Instantiate(clothes[i], spawnPos[i], Quaternion.identity);
             TargetCollision target = spawnedCloth.GetComponent<TargetCollision>();
 
+            GameObject soldText = Instantiate(SoldOutSign, main.transform);
+            soldText.SetActive(false);
+            target.soldOutText = soldText.GetComponent<TMP_Text>();
+
+            if(target != null)
+            {
+                target.maxSales = Random.Range(1,5);
+            }
+
             // Spawn UI Button
             GameObject spawnedButton = Instantiate(buttonPrefab, buttonParent);
             ProfitCounter counter = spawnedButton.GetComponent<ProfitCounter>();
@@ -54,6 +68,16 @@ public class Spawner : MonoBehaviour
             {
                 button.anchoredPosition = buttonPosition[i];
             }
+        }
+
+        if(burstScript == null)
+        {
+            burstScript = FindObjectOfType<BonusBurst>();
+        }
+
+        if(counterScript == null)
+        {
+            counterScript = FindObjectOfType<ProfitCounter>();
         }
     }
 }
