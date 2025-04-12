@@ -8,20 +8,24 @@ public class TargetCollision : MonoBehaviour
     public AnimationCurve curve;
     public float t;
     private Vector3 OScale;
+    public bool isSelling = false;
 
     // Start is called before the first frame update
     void Start()
     {
-
+        OScale = transform.localScale;
     }
 
     public void Sell()
     {
-        StartCoroutine(Selling());
+        if (!isSelling)
+        { 
+            StartCoroutine(Selling());
+        }
     }
     private IEnumerator Selling()
     {
-        OScale = transform.localScale;
+        isSelling = true;
 
         t = 0f;
         while (t < 1f)
@@ -40,5 +44,7 @@ public class TargetCollision : MonoBehaviour
             transform.localScale = OScale * curve.Evaluate(t);
             yield return null;
         }
+
+        isSelling = false;
     }
 }

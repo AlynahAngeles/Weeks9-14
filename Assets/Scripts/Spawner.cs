@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class Spawner : MonoBehaviour
 {
@@ -10,10 +11,18 @@ public class Spawner : MonoBehaviour
     public Vector2[] buttonPosition;
     public GameObject buttonPrefab;
     public Transform buttonParent;
+    public TMP_Text scoreDisplay;
 
     void Start()
     {
         Debug.Log("Restocking...");
+
+        if(scoreDisplay == null)
+        {
+            scoreDisplay = GameObject.Find("Score")?.GetComponent<TMP_Text>();
+        }
+
+        ProfitCounter.scoreDisplay = scoreDisplay;
 
         int count = Mathf.Min(clothes.Length, spawnPos.Length);
 
@@ -36,7 +45,7 @@ public class Spawner : MonoBehaviour
 
             if (button != null)
             {
-                spawnedButton.GetComponent<RectTransform>().anchoredPosition = buttonPosition[i];
+                button.anchoredPosition = buttonPosition[i];
             }
         }
     }
