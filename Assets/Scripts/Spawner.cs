@@ -1,12 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Spawner : MonoBehaviour
 {
     public GameObject[] clothes; // Array of clothes prefabs to spawn
     public Vector3[] spawnPos; //Matching spawn positions
-    public Vector3 buttonPos;
+    public Vector2[] buttonPosition;
     public GameObject buttonPrefab;
     public Transform buttonParent;
 
@@ -35,7 +36,7 @@ public class Spawner : MonoBehaviour
 
             if (button != null)
             {
-                spawnedButton.GetComponent<RectTransform>().anchoredPosition = buttonPos[i];
+                spawnedButton.GetComponent<RectTransform>().anchoredPosition = buttonPosition[i];
             }
         }
     }

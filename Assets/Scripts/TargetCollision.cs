@@ -12,7 +12,6 @@ public class TargetCollision : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        OScale = transform.localScale;
 
     }
 
@@ -22,6 +21,7 @@ public class TargetCollision : MonoBehaviour
     }
     private IEnumerator Selling()
     {
+        OScale = transform.localScale;
 
         t = 0f;
         while (t < 1f)
