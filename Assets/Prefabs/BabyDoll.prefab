@@ -136,4 +136,4 @@ MonoBehaviour:
   profitCounter: {fileID: 0}
   maxSales: 100
   currentSales: 0
-  soldOut: {fileID: 0}
+  soldOutText: {fileID: 0}
